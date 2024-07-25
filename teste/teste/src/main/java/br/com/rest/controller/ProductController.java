@@ -2,6 +2,8 @@ package br.com.rest.controller;
 
 import br.com.rest.model.dto.ProductDto;
 import br.com.rest.service.ProductService;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -24,8 +26,10 @@ public class ProductController {
         return productService.create(product);
     }
 
+    @RequestScoped
     @Transactional
     @GET
+    @RolesAllowed("VIEWER")
     public List<ProductDto> findAll() {
         return productService.findAll();
     }

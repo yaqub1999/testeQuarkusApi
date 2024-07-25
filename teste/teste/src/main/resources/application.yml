@@ -1,4 +1,23 @@
 quarkus:
+  log:
+    category:
+      io:
+        quarkus:
+          oidc:
+            level: TRACE
+          security:
+            level: TRACE
+          smallrye:
+            jwt:
+              level: TRACE
+    level: TRACE
+  oidc:
+    auth-server-url: https://localhost:8180/realms/quarkus
+    client-id: backend-service
+    credentials:
+      secret: secret
+    roles:
+      claim: realm_access.roles
   datasource:
     db-kind: h2
     jdbc-url: jdbc:h2:file:../src/main/resources/data/database;AUTO_SERVER=true;DB_CLOSE_DELAY=-1
@@ -8,3 +27,15 @@ quarkus:
       generation: drop-and-create
     log:
       sql: true
+mp:
+  jwt:
+    verify:
+      issuer: https://example.com/issuer
+      publickey:
+        location: META-INF/resources/publicKey.pem
+smallrye:
+  jwt:
+    new-token:
+      lifespan: '3600'
+    sign:
+      key-location: META-INF/resources/privateKey.pem
